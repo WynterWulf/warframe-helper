@@ -1,3 +1,4 @@
+from tkinter import Y
 import pyautogui
 from PIL import *
 from PIL import ImageFilter
@@ -11,6 +12,7 @@ import pytesseract
 import re
 from difflib import SequenceMatcher
 import pandas as pd
+import warframeitemlib
 
 
 
@@ -56,70 +58,76 @@ def similar(a,b):
 
 #create starting variables
 
-words = [
-        "prime","blueprint",
-        "systems","neuroptics","chassis",
-        "receiver","barrel","stock",
-        "grip","lower","limb","string","upper",
-        "blade","link","handle","head","cerebrum","carapace",
-        "gauntlet","receiver","pouch","stars","disc","band","buckle",
-        "boot","harness","wings","hilt","ornament","chain",
+fissureRewards_list = []
+def loadPrimes():
+    for x in warframeitemlib.arch_gun:
+        test = x['name']
+        if "Prime" in test:
+            test = test.replace(" Prime","")
+            test = test.lower()
+            fissureRewards_list.append(test)
+    
+    for x in warframeitemlib.arch_melee:
+        test = x['name']
+        if "Prime" in test:
+            test = test.replace(" Prime","")
+            test = test.lower()
+            fissureRewards_list.append(test)
 
-        "forma",
+    for x in warframeitemlib.archwing:
+        test = x['name']
+        if "Prime" in test:
+            test = test.replace(" Prime","")
+            test = test.lower()
+            fissureRewards_list.append(test)
 
-        "ash","atlas","banshee","chroma","ember","equinox","frost",
-        "gara","garuda","harrow","hyrdoid","inaros","ivara","limbo",
-        "loki","mag","mesa","mirage","nekros", "nezha", "nidus",
-        "nova", "nyx", "oberon", "octavia","rhino","saryn","titania",
-        "trinity","valkyr","vauban","volt","wukong","zephyr",
+    for x in warframeitemlib.melee:
+        test = x['name']
+        if "Prime" in test:
+            test = test.replace(" Prime","")
+            test = test.lower()
+            fissureRewards_list.append(test)
 
-        "astilla","baza","boar","boltor","braton","burston","cernos",
-        "corinth","latron","nagantaka","panthera","paris","rubico",
-        "scourge","soma","stradavar","strun","sybaris","tenora",
-        "tiberon","tigris","vectis","zhuge"
+    for x in warframeitemlib.primary:
+        test = x['name']
+        if "Prime" in test:
+            test = test.replace(" Prime","")
+            test = test.lower()
+            fissureRewards_list.append(test)
 
-        "akbolto", "akbronco","akjagara","aklex","aksomati","akstiletto",
-        "akvasto","ballistica","bronco","euphona","hikou","knell","lato",
-        "lex","magnus","pandero","pyrana","sicarius","spira","vasto","zakti",
+    for x in warframeitemlib.secondary:
+        test = x['name']
+        if "Prime" in test:
+            test = test.replace(" Prime","")
+            test = test.lower()
+            fissureRewards_list.append(test)
 
-        "ankyros","bo","dakra","destreza","dual","kamas","fang","fragor",
-        "galatine","glaive","gram","guandao","karyst","kogake","kronen",
-        "nami","skyla","nikana","ninkondi","orthos", "pangolin", "reaper",
-        "redeemer", "scindo", "silva", "aegis", "skana", "tekko", "tipedo",
-        "venka","volnus",
+    for x in warframeitemlib.sentinels:
+        test = x['name']
+        if "Prime" in test:
+            test = test.replace(" Prime","")
+            test = test.lower()
+            fissureRewards_list.append(test)
 
-        "corvas","carrier","dethcube","helios","wyrm","kavasa","odonata"
+    for x in warframeitemlib.sentinelweapons:
+        test = x['name']
+        if "Prime" in test:
+            test = test.replace(" Prime","")
+            test = test.lower()
+            fissureRewards_list.append(test)
 
-    ]
+    for x in warframeitemlib.warframes:
+        test = x['name']
+        if "Prime" in test:
+            test = test.replace(" Prime","")
+            test = test.lower()
+            fissureRewards_list.append(test)
 
-names = [
-        "forma"
-        "ash","atlas","banshee","chroma","ember","equinox","frost",
-        "gara","garuda","harrow","hyrdoid","inaros","ivara","limbo",
-        "loki","mag","mesa","mirage","nekros", "nezha", "nidus",
-        "nova", "nyx", "oberon", "octavia","rhino","saryn","titania",
-        "trinity","valkyr","vauban","volt","wukong","zephyr",
 
-        "astilla","baza","boar","boltor","braton","burston","cernos",
-        "corinth","latron","nagantaka","panthera","paris","rubico",
-        "scourge","soma","stradavar","strun","sybaris","tenora",
-        "tiberon","tigris","vectis","zhuge"
-
-        "akbolto", "akbronco","akjagara","aklex","aksomati","akstiletto",
-        "akvasto","ballistica","bronco","euphona","hikou","knell","lato",
-        "lex","magnus","pandero","pyrana","sicarius","spira","vasto","zakti",
-
-        "ankyros","bo","dakra","destreza","dual","kamas","fang","fragor",
-        "galatine","glaive","gram","guandao","karyst","kogake","kronen",
-        "nami","skyla","nikana","ninkondi","orthos", "pangolin", "reaper",
-        "redeemer", "scindo", "silva", "aegis", "skana", "tekko", "tipedo",
-        "venka","volnus",
-
-        "corvas","carrier","dethcube","helios","wyrm","kavasa","odonata"
-]
+loadPrimes()
 
 parts = [
-        "blueprint",
+        "blueprint", "forma"
         "systems","neuroptics","chassis",
         "receiver","barrel","stock",
         "grip","lower","limb","string","upper",
@@ -127,6 +135,9 @@ parts = [
         "gauntlet","receiver","pouch","stars","disc","band","buckle",
         "boot","harness","wings","hilt","ornament","chain",
 ]
+
+
+fissureRewards_list.append(parts)
 
 class state:
   def __init__(self, screenState, screenshot, screenStr, screenWords, rewardList):
@@ -156,7 +167,7 @@ class state:
         elif(screenWords[i] == "forma"):
             print(screenWords[i])
             print(screenWords[i+1])
-            rewardListTemp.append(reward(screenWords[i],"Blueprint",rewardCount))
+            rewardListTemp.append(reward(screenWords[i],"blueprint",rewardCount))
             rewardCount = rewardCount + 1
         i = i + 1
     if self.rewardList == []:
@@ -165,20 +176,17 @@ class state:
         rewardCount = len(self.rewardList)
         rewardList = self.rewardList
         i = 0
-        while i < rewardCount:
-            correct = 0
-            correctTemp = 0
-            if any(ext in rewardList[i].name for ext in words):
-                correct = correct + 1
-            if any(ext in rewardList[i].part for ext in words):
-                correct = correct + 1
-            if any(ext in rewardListTemp[i].name for ext in words):
-                correctTemp = correctTemp + 1
-            if any(ext in rewardListTemp[i].part for ext in words):
-                correctTemp = correctTemp + 1
-            if correctTemp > correct:
-                rewardList[i] = rewardListTemp[i]
-            i = i + 1
+        for i in rewardList:
+            for y in fissureRewards_list:
+                correct = 0
+                correctTemp = 0
+                if any(ext in i.name for ext in y):
+                    correct = correct + 1
+                if any(ext in i.name for ext in y):
+                    correctTemp = correctTemp + 1
+                if correctTemp > correct:
+                    rewardList[i] = rewardListTemp[i]
+                
             
     
   def spellCheck(self):
@@ -186,18 +194,18 @@ class state:
     screenWordsTemp = self.screenWords
     
     lengthScreenWords = len(screenWordsTemp)
-    lengthWords = len(words)
+    lengthWords = len(fissureRewards_list)
     i = 0
     
     while i < lengthScreenWords:
         j = 0
         while j < lengthWords:
             
-            result = similar(screenWordsTemp[i],words[j])
+            result = similar(screenWordsTemp[i],fissureRewards_list[j])
             #print("compared",words[j],"with",screenWordsTemp[i])
             if  result > 0.8:
-                screenWordsTemp[i] = words[j]
-                print("replaced",words[j],"with",screenWordsTemp[i])
+                screenWordsTemp[i] = fissureRewards_list[j]
+                print("replaced",fissureRewards_list[j],"with",screenWordsTemp[i])
             j = j + 1
         i = i + 1
     self.screenWords = screenWordsTemp
@@ -246,3 +254,5 @@ while currentState.screenState == "Rewards screen":
     print(currentState.screenState)
 
     time.sleep(0.1) #END
+
+    #test
