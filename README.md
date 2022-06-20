@@ -1,7 +1,10 @@
 # warframe-helper
 A private project warframe helper, with a few tools combined while i learn python
 
-I'm basically going to be making this as a private project at the moment
+I'm basically going to be making this as a private project at the moment, intended to increase the amount of information accessible in real-time warframe gameplay
+
+file structure relies on warframe/warframe-helper/ and warframe/warframe/warframe-items/ from WFCD/warframe-items
+
 pip list at the moment:
 
 Package            Version
