@@ -8,7 +8,7 @@ file structure relies on warframe/warframe-helper/ and warframe/warframe/warfram
 pip list at the moment:
 
 Package            Version
------------------- -----------
+
 async-generator    1.10
 attrs              21.4.0
 beautifulsoup4     4.11.1
