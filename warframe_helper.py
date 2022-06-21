@@ -13,6 +13,7 @@ from difflib import SequenceMatcher
 import pandas as pd
 from os.path import exists
 from vaulted_scraper import vaulted_scraper
+import warframeitemlib
 
 # Global Vars
 lines = []
@@ -46,6 +47,7 @@ if exists('warframe_helper_temp.txt'):
         globalData.lastOpened = float(lines[1])
 
         if currentTime > (daySeconds + globalData.lastOpened):
+            warframeitemlib.pullDataApi()
             vaulted_scraper()
     with open(r'warframe_helper_temp.txt','w') as file:
         file.truncate(0)

@@ -1,5 +1,6 @@
 
 import json
+import requests
 import io
 
 
@@ -94,54 +95,197 @@ import io
 
 
 
-allList = []
 
-def allListAppend(dataType):
-    allList.append([dataType])
-    
+def pullDataTxt():
+    allList = []
+    fileArcanes = io.open(r"warframe-helper/arcanesLib.txt",mode="r",encoding="utf-8")
+    arcanes.append(json.load(fileArcanes))
+
+    fileArchgun = io.open(r"warframe-helper/archgunLib.txt",mode="r",encoding="utf-8")
+    archgun.append(json.load(fileArchgun))
+
+    fileArchmelee = io.open(r"warframe-helper/archmeleeLib.txt",mode="r",encoding="utf-8")
+    archmelee.append(json.load(fileArchmelee))
+
+    fileArchwing = io.open(r"warframe-helper/archwingLib.txt",mode="r",encoding="utf-8")
+    archwing.append(json.load(fileArchwing))
+
+    fileFish = io.open(r"warframe-helper/fishLib.txt",mode="r",encoding="utf-8")
+    fish.append(json.load(fileFish))
+
+    fileGear = io.open(r"warframe-helper/gearLib.txt",mode="r",encoding="utf-8")
+    gear.append(json.load(fileGear))
+
+    fileGlyphs = io.open(r"warframe-helper/glpyhsLib.txt",mode="r",encoding="utf-8")
+    glyphs.append(json.load(fileGlyphs))
+
+    fileMelee = io.open(r"warframe-helper/meleeLib.txt",mode="r",encoding="utf-8")
+    melee.append(json.load(fileMelee))
+
+    fileMods = io.open(r"warframe-helper/modsLib.txt",mode="r",encoding="utf-8")
+    mods.append(json.load(fileMods))
+
+    filePets = io.open(r"warframe-helper/petsLib.txt",mode="r",encoding="utf-8")
+    pets.append(json.load(filePets))
+
+    filePrimary = io.open(r"warframe-helper/primaryLib.txt",mode="r",encoding="utf-8")
+    primary.append(json.load(filePrimary))
+
+    fileRelics = io.open(r"warframe-helper/relicsLib.txt",mode="r",encoding="utf-8")
+    relics.append(json.load(fileRelics))
+
+    fileResources = io.open(r"warframe-helper/resourcesLib.txt",mode="r",encoding="utf-8")
+    resources.append(json.load(fileResources))
+
+    fileSecondary = io.open(r"warframe-helper/secondaryLib.txt",mode="r",encoding="utf-8")
+    secondary.append(json.load(fileSecondary))
+
+    fileSentinels = io.open(r"warframe-helper/sentinelsLib.txt",mode="r",encoding="utf-8")
+    sentinels.append(json.load(fileSentinels))
+
+    fileSentinelWeapons = io.open(r"warframe-helper/sentinelWeaponsLib.txt",mode="r",encoding="utf-8")
+    sentinelweapons.append(json.load(fileSentinelWeapons))
+
+    fileSigils = io.open(r"warframe-helper/sigilsLib.txt",mode="r",encoding="utf-8")
+    sigils.append(json.load(fileSigils))
+
+    fileSkins = io.open(r"warframe-helper/skinsLib.txt",mode="r",encoding="utf-8")
+    skins.append(json.load(fileSkins))
+
+    fileWarframes = io.open(r"warframe-helper/warframesLib.txt",mode="r",encoding="utf-8")
+    warframes.append(json.load(fileWarframes))
+
+def pullDataApi():
+    allList = []
+
+    def allListAppend(dataType):
+        allList.append([dataType])
+        
 
 
-arcanes = json.load(io.open(r"..\warframe\warframe-items\data\json\Arcanes.json",mode="r",encoding="utf-8"))
-arch_gun = json.load(io.open(r"..\warframe\warframe-items\data\json\Arch-Gun.json",mode="r",encoding="utf-8"))
-arch_melee = json.load(io.open(r"..\warframe\warframe-items\data\json\Arch-Melee.json",mode="r",encoding="utf-8"))
-archwing = json.load(io.open(r"..\warframe\warframe-items\data\json\Archwing.json",mode="r",encoding="utf-8"))
-fish = json.load(io.open(r"..\warframe\warframe-items\data\json\Fish.json",mode="r",encoding="utf-8"))
-gear = json.load(io.open(r"..\warframe\warframe-items\data\json\Gear.json",mode="r",encoding="utf-8"))
-glyphs = json.load(io.open(r"..\warframe\warframe-items\data\json\Glyphs.json",mode="r",encoding="utf-8"))
-melee = json.load(io.open(r"..\warframe\warframe-items\data\json\Melee.json",mode="r",encoding="utf-8"))
-mods = json.load(io.open(r"..\warframe\warframe-items\data\json\Mods.json",mode="r",encoding="utf-8"))
-pets = json.load(io.open(r"..\warframe\warframe-items\data\json\Pets.json",mode="r",encoding="utf-8"))
-primary = json.load(io.open(r"..\warframe\warframe-items\data\json\Primary.json",mode="r",encoding="utf-8"))
-relics = json.load(io.open(r"..\warframe\warframe-items\data\json\Relics.json",mode="r",encoding="utf-8"))
-resources = json.load(io.open(r"..\warframe\warframe-items\data\json\Resources.json",mode="r",encoding="utf-8"))
-secondary = json.load(io.open(r"..\warframe\warframe-items\data\json\Secondary.json",mode="r",encoding="utf-8"))
-sentinels = json.load(io.open(r"..\warframe\warframe-items\data\json\Sentinels.json",mode="r",encoding="utf-8"))
-sentinelweapons = json.load(io.open(r"..\warframe\warframe-items\data\json\SentinelWeapons.json",mode="r",encoding="utf-8"))
-sigils = json.load(io.open(r"..\warframe\warframe-items\data\json\Relics.json",mode="r",encoding="utf-8"))
-skins = json.load(io.open(r"..\warframe\warframe-items\data\json\Relics.json",mode="r",encoding="utf-8"))
-warframes = json.load(io.open(r"..\warframe\warframe-items\data\json\Relics.json",mode="r",encoding="utf-8"))
+    arcanes = json.loads(requests.get('https://api.warframestat.us/items/search/arcanes?by=category').text)
+    archgun = json.loads(requests.get('https://api.warframestat.us/items/search/arch-gun?by=category').text)
+    archmelee = json.loads(requests.get('https://api.warframestat.us/items/search/arch-melee?by=category').text)
+    archwing = json.loads(requests.get('https://api.warframestat.us/items/search/archwing?by=category').text)
+    fish = json.loads(requests.get('https://api.warframestat.us/items/search/fish?by=category').text)
+    gear = json.loads(requests.get('https://api.warframestat.us/items/search/gear?by=category').text)
+    glyphs = json.loads(requests.get('https://api.warframestat.us/items/search/glyphs?by=category').text)
+    melee = json.loads(requests.get('https://api.warframestat.us/items/search/melee?by=category').text)
+    mods = json.loads(requests.get('https://api.warframestat.us/items/search/mods?by=category').text)
+    pets = json.loads(requests.get('https://api.warframestat.us/items/search/pets?by=category').text)
+    primary = json.loads(requests.get('https://api.warframestat.us/items/search/primary?by=category').text)
+    relics = json.loads(requests.get('https://api.warframestat.us/items/search/relics?by=category').text)
+    resources = json.loads(requests.get('https://api.warframestat.us/items/search/resources?by=category').text)
+    secondary = json.loads(requests.get('https://api.warframestat.us/items/search/secondary?by=category').text)
+    sentinels = json.loads(requests.get('https://api.warframestat.us/items/search/sentinels?by=category').text)
+    sentinelweapons = json.loads(requests.get('https://api.warframestat.us/items/search/sentinelweapons?by=category').text)
+    sigils = json.loads(requests.get('https://api.warframestat.us/items/search/sigils?by=category').text)
+    skins = json.loads(requests.get('https://api.warframestat.us/items/search/skins?by=category').text)
+    warframes = json.loads(requests.get('https://api.warframestat.us/items/search/warframes?by=category').text)
 
-allListAppend(arcanes)
-allListAppend(arch_gun)
-allListAppend(arch_melee)
-allListAppend(archwing)
-allListAppend(fish)
-allListAppend(gear)
-allListAppend(glyphs)
-allListAppend(melee)
-allListAppend(mods)
-allListAppend(pets)
-allListAppend(primary)
-allListAppend(relics)
-allListAppend(resources)
-allListAppend(secondary)
-allListAppend(sentinels)
-allListAppend(sentinelweapons)
-allListAppend(sigils)
-allListAppend(skins)
-allListAppend(warframes)
+    allListAppend(arcanes)
+    allListAppend(archgun)
+    allListAppend(archmelee)
+    allListAppend(archwing)
+    allListAppend(fish)
+    allListAppend(gear)
+    allListAppend(glyphs)
+    allListAppend(melee)
+    allListAppend(mods)
+    allListAppend(pets)
+    allListAppend(primary)
+    allListAppend(relics)
+    allListAppend(resources)
+    allListAppend(secondary)
+    allListAppend(sentinels)
+    allListAppend(sentinelweapons)
+    allListAppend(sigils)
+    allListAppend(skins)
+    allListAppend(warframes)
 
-print(len(allList))
+    print(len(allList))
 
+    fileArcanes = open("warframe-helper/arcanesLib.txt","w")
+    json.dump(arcanes,fileArcanes)
+
+    fileArchgun = open("warframe-helper/archgunLib.txt","w")
+    json.dump(archgun,fileArchgun)
+
+    fileArchmelee = open("warframe-helper/archmeleeLib.txt","w")
+    json.dump(archmelee,fileArchmelee)
+
+    fileArchwing = open("warframe-helper/archwingLib.txt","w")
+    json.dump(archwing,fileArchwing)
+
+    fileFish = open("warframe-helper/fishLib.txt","w")
+    json.dump(fish,fileFish)
+
+    fileGear = open("warframe-helper/gearLib.txt","w")
+    json.dump(gear,fileGear)
+
+    fileGlyphs = open("warframe-helper/glpyhsLib.txt","w")
+    json.dump(glyphs,fileGlyphs)
+
+    fileMelee = open("warframe-helper/meleeLib.txt","w")
+    json.dump(melee,fileMelee)
+
+    fileMods = open("warframe-helper/modsLib.txt","w")
+    json.dump(mods,fileMods)
+
+    filePets = open("warframe-helper/petsLib.txt","w")
+    json.dump(pets,filePets)
+
+    filePrimary = open("warframe-helper/primaryLib.txt","w")
+    json.dump(primary,filePrimary)
+
+    fileRelics = open("warframe-helper/relicsLib.txt","w")
+    json.dump(relics,fileRelics)
+
+    fileResources = open("warframe-helper/resourcesLib.txt","w")
+    json.dump(resources,fileResources)
+
+    fileSecondary = open("warframe-helper/secondaryLib.txt","w")
+    json.dump(secondary,fileSecondary)
+
+    fileSentinels = open("warframe-helper/sentinelsLib.txt","w")
+    json.dump(sentinels,fileSentinels)
+
+    fileSentinelWeapons = open("warframe-helper/sentinelWeaponsLib.txt","w")
+    json.dump(sentinelweapons,fileSentinelWeapons)
+
+    fileSigils = open("warframe-helper/sigilsLib.txt","w")
+    json.dump(sigils,fileSigils)
+
+    fileSkins = open("warframe-helper/skinsLib.txt","w")
+    json.dump(skins,fileSkins)
+
+    fileWarframes = open("warframe-helper/warframesLib.txt","w")
+    json.dump(warframes,fileWarframes)
+            
+
+
+    print("test")
+
+arcanes =[]
+archgun =[]
+archmelee =[]
+archwing =[]
+fish =[]
+gear =[]
+glyphs =[]
+melee =[]
+mods =[]
+pets =[]
+primary =[]
+relics =[]
+resources =[]
+secondary =[]
+sentinels =[]
+sentinelweapons =[]
+sigils =[]
+skins =[]
+warframes =[]
+
+pullDataTxt()
 
 print("test")

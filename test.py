@@ -1,13 +1,21 @@
 import requests
-import urllib
-import re
+import json
+import time
+import keyboard
 
-robots = "https://overframe.gg/robots.txt"
+always = 1
+count = 0
+url = "https://api.warframestat.us/profile/crater29224?language=en"
 
-sitemap_ls = []
+while always:
+    requests_mission = []
+    response = requests.get(url)
 
-with urllib.request.urlopen(robots) as stream:
-    for line in urllib.request.urlopen(robots).read().decode("utf-8").split('\n'):
-        if 'Sitemap'.lower() in line.lower():
-            sitemap_url = re.findall(r' (https.*xml)', line)[0]
-            sitemap_ls.append(sitemap_url)
+    print(response)
+
+    data = response.text
+    parsed = json.loads(data)
+    requests_mission.append(parsed)
+    count = count + 1
+    print(count)
+    time.sleep(1)
